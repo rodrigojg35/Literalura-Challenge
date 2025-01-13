@@ -1,5 +1,6 @@
 package com.juradogonzalezrodrigo.literalura.principal;
 
+import com.juradogonzalezrodrigo.literalura.service.AutorService;
 import com.juradogonzalezrodrigo.literalura.service.LibroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,10 +17,12 @@ public class MainMenu {
 
     // Servicios
     private final LibroService libroService;
+    private final AutorService autorService;
 
     @Autowired
-    public MainMenu(LibroService libroService) {
+    public MainMenu(LibroService libroService, AutorService autorService) {
         this.libroService = libroService;
+        this.autorService = autorService;
     }
 
         public void iniciarMenu() {
@@ -134,6 +137,8 @@ public class MainMenu {
             System.out.println("Listando autores registrados: ");
             System.out.println();
 
+            autorService.listarAutoresRegistrados();
+
         }
 
         private void listarAutoresVivosEnUnDeterminadoAnio() {
@@ -155,6 +160,8 @@ public class MainMenu {
             System.out.println();
             System.out.println("Buscando autores vivos en el año " + anio + "...");
             System.out.println();
+
+            autorService.listarAutoresVivosEnUnDeterminadoAnio(anio);
 
 
         }
