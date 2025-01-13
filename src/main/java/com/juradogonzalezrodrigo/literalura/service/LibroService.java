@@ -49,7 +49,16 @@ public class LibroService {
                     apiResponse.getResults().get(0).getDownloadCount()
             );
 
-            System.out.println(libro.toString());
+            // Mostrar el libro
+
+            System.out.println("----- LIBRO -----");
+            System.out.println("Título: " + libro.titulo());
+            System.out.println("Autor: " + libro.autor().nombre());
+            System.out.println("Idioma: " + libro.idioma());
+            System.out.println("Cantidad de descargas: " + libro.cantDescargas());
+            System.out.println("-----------------");
+
+            // Guaradar en la base de datos
 
 
 
