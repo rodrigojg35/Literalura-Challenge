@@ -189,6 +189,9 @@ public class MainMenu {
             System.out.println("Buscando libros en " + idiomas.get(idiomaSeleccionado) + "...");
             System.out.println();
 
+            libroService.listarLibrosPorIdioma(idiomaSeleccionado);
+
+
 
         }
 }

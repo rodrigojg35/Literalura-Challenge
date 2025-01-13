@@ -10,7 +10,10 @@ import com.juradogonzalezrodrigo.literalura.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class LibroService {
@@ -114,10 +117,9 @@ public class LibroService {
 
     public void listarLibrosRegistrados(){
 
-        System.out.println("Listando libros registrados: ");
-        System.out.println();
+        List<Libro> listaDelibros = libroRepository.findAllByOrderByTituloAsc();
 
-        for (Libro libro : libroRepository.findAll()) {
+        for (Libro libro : listaDelibros ) {
             System.out.println("----- LIBRO -----");
             System.out.println("Título: " + libro.getTitulo());
             System.out.println("Autor: " + libro.getAutor().getNombre());
@@ -125,6 +127,28 @@ public class LibroService {
             System.out.println("Cantidad de descargas: " + libro.getCantDescargas());
             System.out.println("-----------------");
         }
+
+
+    }
+
+    public void listarLibrosPorIdioma(String idioma){
+
+        List<Libro> listaDelibros = libroRepository.findByIdiomaOrderByTituloAsc(idioma);
+
+        // Organizar alfabeticamente los libros antes de imprimirlos
+        listaDelibros = listaDelibros.stream()
+                                     .sorted(Comparator.comparing(Libro::getTitulo))
+                                     .collect(Collectors.toList());
+
+        for (Libro libro : listaDelibros ) {
+            System.out.println("----- LIBRO -----");
+            System.out.println("Título: " + libro.getTitulo());
+            System.out.println("Autor: " + libro.getAutor().getNombre());
+            System.out.println("Idioma: " + libro.getIdioma());
+            System.out.println("Cantidad de descargas: " + libro.getCantDescargas());
+            System.out.println("-----------------");
+        }
+
 
 
     }
