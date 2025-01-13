@@ -12,7 +12,7 @@ public interface LibroRepository extends JpaRepository<Libro, Long> {
 
     List<Libro> findAllByOrderByTituloAsc();
     Optional<Libro> findByTitulo(String titulo);
-    List<Libro> findByIdiomaOrderByTituloAsc(String idioma);
+    List<Libro> findByIdioma(String idioma);
 
 
 

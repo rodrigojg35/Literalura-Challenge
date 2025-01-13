@@ -119,27 +119,35 @@ public class LibroService {
 
         List<Libro> listaDelibros = libroRepository.findAllByOrderByTituloAsc();
 
-        for (Libro libro : listaDelibros ) {
-            System.out.println("----- LIBRO -----");
-            System.out.println("Título: " + libro.getTitulo());
-            System.out.println("Autor: " + libro.getAutor().getNombre());
-            System.out.println("Idioma: " + libro.getIdioma());
-            System.out.println("Cantidad de descargas: " + libro.getCantDescargas());
-            System.out.println("-----------------");
+        if (listaDelibros.isEmpty()) {
+            System.out.println("No se encontraron libros registrados.");
+            return;
         }
+
+        imprimirListaDeLibros(listaDelibros);
 
 
     }
 
     public void listarLibrosPorIdioma(String idioma){
 
-        List<Libro> listaDelibros = libroRepository.findByIdiomaOrderByTituloAsc(idioma);
+        List<Libro> listaDelibros = libroRepository.findByIdioma(idioma);
+
+        if (listaDelibros.isEmpty()) {
+            System.out.println("No se encontraron libros en el idioma seleccionado.");
+            return;
+        }
 
         // Organizar alfabeticamente los libros antes de imprimirlos
         listaDelibros = listaDelibros.stream()
                                      .sorted(Comparator.comparing(Libro::getTitulo))
                                      .collect(Collectors.toList());
 
+        imprimirListaDeLibros(listaDelibros);
+
+    }
+
+    private void imprimirListaDeLibros(List<Libro> listaDelibros) {
         for (Libro libro : listaDelibros ) {
             System.out.println("----- LIBRO -----");
             System.out.println("Título: " + libro.getTitulo());
@@ -148,9 +156,6 @@ public class LibroService {
             System.out.println("Cantidad de descargas: " + libro.getCantDescargas());
             System.out.println("-----------------");
         }
-
-
-
     }
 
 }
