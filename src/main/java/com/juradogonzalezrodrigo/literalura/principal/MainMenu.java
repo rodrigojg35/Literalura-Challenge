@@ -1,19 +1,26 @@
 package com.juradogonzalezrodrigo.literalura.principal;
 
 import com.juradogonzalezrodrigo.literalura.service.LibroService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+@Component
 public class MainMenu {
 
     private Scanner scanner = new Scanner(System.in);
     private int opcionPrincipal;
 
     // Servicios
-    LibroService libroService = new LibroService();
+    private final LibroService libroService;
 
+    @Autowired
+    public MainMenu(LibroService libroService) {
+        this.libroService = libroService;
+    }
 
         public void iniciarMenu() {
 
