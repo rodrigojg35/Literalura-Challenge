@@ -150,7 +150,11 @@ public class MainMenu {
                 try {
                     System.out.print("--> ");
                     anio = scanner.nextInt();
-                    break;
+                    if (anio >= 100 && anio <= 9999) {
+                        break;
+                    } else {
+                        System.out.println("Por favor, ingrese un año válido (entre 100 y 9999).");
+                    }
                 } catch (Exception e) {
                     System.out.println("Por favor, ingrese un año válido.");
                     scanner.next();
