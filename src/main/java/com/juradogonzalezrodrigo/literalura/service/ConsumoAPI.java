@@ -9,22 +9,22 @@ import java.net.http.HttpResponse;
 public class ConsumoAPI {
 
     public String obtenerDatos(String url) {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .build();
-        HttpResponse<String> response = null;
-
         try {
-            response = client
-                    .send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            HttpClient client = HttpClient.newBuilder()
+                    .followRedirects(HttpClient.Redirect.ALWAYS)
+                    .build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .GET()
+                    .build();
 
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            return response.body();
+
+        } catch (IOException | InterruptedException e) {
+            System.out.println("Error al obtener datos de la API: " + e.getMessage());
+            return null;
         }
-
-        return response.body();
     }
 }

@@ -1,5 +1,7 @@
 package com.juradogonzalezrodrigo.literalura.principal;
 
+import com.juradogonzalezrodrigo.literalura.service.LibroService;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -8,6 +10,9 @@ public class MainMenu {
 
     private Scanner scanner = new Scanner(System.in);
     private int opcionPrincipal;
+
+    // Servicios
+    LibroService libroService = new LibroService();
 
 
         public void iniciarMenu() {
@@ -62,6 +67,8 @@ public class MainMenu {
                     break;
                 }
 
+
+
                 // Opciones del menú principal
                 switch (opcionPrincipal) {
                     // Llamar a los métodos correspondientes
@@ -95,11 +102,16 @@ public class MainMenu {
         private void buscarLibroPorTitulo() {
             System.out.println("Ingrese el nombre del libro a buscar: ");
             System.out.print("--> ");
-            String titulo = scanner.next();
+            scanner.nextLine();
+            String titulo = scanner.nextLine();
 
             System.out.println();
             System.out.println("Buscando... un momento porfavor...");
             System.out.println();
+
+            // Llamar al servicio correspondiente
+            libroService.buscarLibroPorTitulo(titulo);
+
 
 
         }
