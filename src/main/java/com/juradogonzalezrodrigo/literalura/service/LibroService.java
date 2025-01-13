@@ -10,6 +10,8 @@ import com.juradogonzalezrodrigo.literalura.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class LibroService {
 
@@ -54,28 +56,51 @@ public class LibroService {
 
             // Mostrar el libro
 
-            System.out.println("----- LIBRO -----");
+            System.out.println("----- LIBRO ENCONTRADO -----");
             System.out.println("Título: " + libro.getTitulo());
             System.out.println("Autor: " + libro.getAutor().getNombre());
             System.out.println("Idioma: " + libro.getIdioma());
             System.out.println("Cantidad de descargas: " + libro.getCantDescargas());
-            System.out.println("-----------------");
+            System.out.println("-----------------------------");
 
             // System.out.println("Resultado: "+ libro);
 
+            // Verificar si el libro ya existe en la base de datos
+            Optional<Libro> libroExistente = libroRepository.findByTitulo(libro.getTitulo());
+
+            if (libroExistente.isPresent()) {
+
+                System.out.println("El libro ya existe en la base de datos.");
+                return;
+
+            }
+
             // Guardar en la base de datos
-            System.out.println("Guardando en la base de datos...");
-            autorRepository.save(autor);
+            System.out.println("Guardando libro en la base de datos...");
+
+            // Verificar si el autor ya existe en la base de datos
+            Optional<Autor> autorExistente = autorRepository.findByNombre(autor.getNombre());
+
+            if (autorExistente.isPresent()) {
+                // si ya existe el autor, se reemplaza el autor del libro por el autor YA existente
+                autor = autorExistente.get();
+
+            } else {
+                // si no existe el autor, se guarda el autor en la base de datos tambien
+                autorRepository.save(autor);
+
+            }
+            // sobreescritura del autor del libro y guardar libro
+            libro.setAutor(autor);
             libroRepository.save(libro);
+
 
             // Verificar si se guardaron correctamente
             if (autorRepository.existsById(autor.getId()) && libroRepository.existsById(libro.getId())) {
-                System.out.println("Libro y autor guardados exitosamente.");
+                System.out.println("Datos guardados exitosamente.");
             } else {
                 System.out.println("Error al guardar el libro o el autor.");
             }
-
-
 
 
         } catch (Exception e) {
@@ -86,4 +111,22 @@ public class LibroService {
 
 
     }
+
+    public void listarLibrosRegistrados(){
+
+        System.out.println("Listando libros registrados: ");
+        System.out.println();
+
+        for (Libro libro : libroRepository.findAll()) {
+            System.out.println("----- LIBRO -----");
+            System.out.println("Título: " + libro.getTitulo());
+            System.out.println("Autor: " + libro.getAutor().getNombre());
+            System.out.println("Idioma: " + libro.getIdioma());
+            System.out.println("Cantidad de descargas: " + libro.getCantDescargas());
+            System.out.println("-----------------");
+        }
+
+
+    }
+
 }

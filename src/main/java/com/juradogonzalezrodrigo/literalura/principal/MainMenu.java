@@ -113,7 +113,7 @@ public class MainMenu {
             String titulo = scanner.nextLine();
 
             System.out.println();
-            System.out.println("Buscando... un momento porfavor...");
+            System.out.println("Buscando libro... un momento porfavor...");
             System.out.println();
 
             // Llamar al servicio correspondiente
@@ -126,6 +126,7 @@ public class MainMenu {
         private void listarLibrosRegistrados() {
             System.out.println("Mostrando libros registrados: ");
             System.out.println();
+            libroService.listarLibrosRegistrados();
 
         }
 
