@@ -44,6 +44,8 @@ Las validaciones de tipos de dato y rangos funcionan bien, no permitiendo al usu
 Los idiomas configurados solo fueron esos por simplicidad ya que no me vinieron a la mente tantos libros y no vi mas idiomas que los que puse ahí, nuevamente, al buscar por idioma tambien lo ordena.
 Aunque pude hacer todas las consuttas con las derived queries (y con jpql) ya con un order by, en algunos casos decidí dejar esa parte con streams para aplicar todo.
 
+La configuración para la base de datos esta definida en el archivo properties con el driver para postgresql, y los parámetros están definidos como variables de ambiente por lo que de configurarlos con los nombres indicados ahi, deberia funcioonar sin problemas
+
 Agradezco mucho la atención y retroalimentación para este proyecto, a quien guste.
 
 Rodrigo Jurado.
